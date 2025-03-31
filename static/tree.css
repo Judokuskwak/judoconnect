@@ -1,0 +1,89 @@
+/* Algemene styling */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("images/finaltree.webp"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden; /* Zorg ervoor dat er geen ongewenste witte randen zijn */
+}
+
+/* Standaard stijl slepen voor de technieken */
+.technique {
+    padding: 2px 5px;
+    margin: 5px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    cursor: grab;  /* Maak de cursor een aanwijzer om aan te geven dat het element slepen is */
+    position: absolute; /* Laat het vrij bewegen */
+    color: black;
+    width: auto;
+    height: auto;
+    font-size: 9px;
+}
+
+.technique-link {
+    text-decoration: none; /* Verwijdert onderstreping */
+    color: black;
+    display: block; /* Zorgt ervoor dat de hele tekst klikbaar is */
+}
+
+.technique-link:hover {
+    background-color: deepskyblue;
+}
+
+* {
+    box-sizing: border-box; /* Zorg ervoor dat de padding en border binnen de breedte/hoogte vallen */
+}
+
+/* Visuele feedback wanneer het element wordt gesleept */
+.technique:active {
+    cursor: grabbing;
+    opacity: 0.5;
+}
+
+.tree {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    font-family: Arial, sans-serif;
+}
+
+.branch {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.branch > .technique {
+    margin: 5px;
+    padding: 2px 5px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.branch > .technique:hover {
+    background-color: #ddd;
+}
+
+.branches-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}

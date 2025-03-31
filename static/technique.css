@@ -1,0 +1,217 @@
+body {
+    background-image: url("images/Backgroundforvideos.webp"); 
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+body, html {
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100%;
+    background: rgba(255, 255, 255, 0.25);
+    z-index: -1;
+}
+
+.video-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    padding: 15px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+}
+
+.video {
+    flex: 1 1 calc(25% - 30px);
+    max-width: calc(25% - 30px);
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.video iframe {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+}
+
+.video-container iframe {
+    width: 100%;
+    max-width: 315px;
+    height: 200px;
+    border-radius: 8px;
+}
+
+.video-rating {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.rating-band {
+    width: 25px;
+    height: 10px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-image: url('images/judoband.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-image {
+    width: 100%;
+    height: auto;
+    max-width: 40px;
+    max-height: 10px;
+}
+
+.rating-band.filled {
+    background-color: black;
+}
+
+.rating-band.selected {
+    content: url("{{ url_for('static', filename='images/blackbelt.webp') }}");
+}
+
+.vote-button {
+    margin-top: 10px;
+}
+
+.video p {
+    margin: 0;
+    padding: 0;
+    color: white; /* Witte tekst */
+    text-shadow: 
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000; /* Zwart randje rondom */
+}
+
+.video-rating,
+.video p {
+    margin-bottom: 5px;
+}
+
+.torii-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.torii-icon {
+    font-size: 40px;
+    color: red;
+}
+
+.torii-link span {
+    margin-top: 5px;
+}
+
+/* Container voor beide formulieren */
+.form-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Upload-formulier */
+.upload-form {
+    display: flex;
+    align-items: center;
+}
+
+/* Inputvelden voor upload */
+input[name="youtube_url"],
+input[name="labels"] {
+    height: 20px;
+    padding: 0;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+input[name="youtube_url"] {
+    width: 200px;
+    margin-right: 10px;
+}
+
+input[name="labels"] {
+    margin-left: 10px;
+    width: 300px;
+    margin-right: 10px;
+}
+
+/* Add-knop */
+.add-button {
+    height: 20px;
+    padding: 0 10px;
+    margin-right: 10px;
+}
+
+/* Zoekformulier */
+.search-form {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Zoekveld */
+.search-form input[type="text"] {
+    height: 20px;
+    padding: 2px 5px;
+    width: 150px;
+    box-sizing: border-box;
+}
+
+/* Zoekknop met vergrootglas */
+.search-button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
+}
+
+.search-button svg {
+    width: 18px;
+    height: 18px;
+    stroke: black;
+}
+
+.search-button:hover {
+    opacity: 0.7;
+}
+
+/* Basisstyling */
+body {
+    margin: 0;
+}

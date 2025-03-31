@@ -1,0 +1,101 @@
+/* Algemene styling */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("images/Background_judoconnect_2.webp"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden; /* Zorg ervoor dat er geen ongewenste witte randen zijn */
+}
+
+/* Styling voor de uitlogknop rechtsboven */
+.logout-btn {
+    position: fixed;  /* Zorgt ervoor dat de knop altijd zichtbaar blijft */
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #dc3545;  /* Rode kleur zoals Bootstrap */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000; /* Zorgt ervoor dat de knop bovenop andere elementen ligt */
+}
+
+.logout-btn:hover {
+    background-color: #c82333;  /* Donkerder rood bij hover */
+}
+
+/* Strakke balk met titel */
+.title-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(204, 153, 51, 0.7); /* Gouden doorzichtige balk */
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* Strakkere uitstraling */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Container voor de knoppen */
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    bottom: 100px; /* Iets hoger plaatsen */
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+}
+
+/* Styling voor de ronde knoppen */
+.btn {
+    width: 150px; /* Grotere knoppen */
+    height: 150px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6); /* Donkerder transparant */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 18px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Witte subtiele rand */
+}
+
+.btn:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Witte gloed bij hover */
+    border-color: white;
+    transform: scale(1.1); /* Knoppen iets vergroten */
+    transition: transform 0.3s ease-in-out;
+}
+
+.btn:focus {
+    outline: none;
+}

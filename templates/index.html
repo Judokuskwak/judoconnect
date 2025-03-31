@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voeg een YouTube-video toe</title>
+</head>
+<body>
+    <h1>Voeg een YouTube-video toe</h1>
+    <form method="POST">
+        <input type="text" name="youtube_url" placeholder="Plak hier een YouTube-link" required>
+        <button type="submit">Video toevoegen</button>
+    </form>
+
+    {% if video_url %}
+        <h2>Ingevoegde video:</h2>
+        <iframe width="560" height="315" src="{{ video_url }}" frameborder="0" allowfullscreen></iframe>
+    {% endif %}
+</body>
+</html>

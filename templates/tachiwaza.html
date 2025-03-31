@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tachiwaza</title>
+    <!-- Verwijzing naar het externe CSS-bestand -->
+    <link rel="stylesheet" href="static/tree.css">
+    <link rel="icon" href="{{ url_for('static', filename='images/blackbelt.webp') }}" type="image/x-icon">
+</head>
+<body>
+    <div class="tree">
+        <div class="branches-container">
+            <!-- Hoofdtak -->
+            <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="technique" id="nagewaza" draggable="false" ondragstart="drag(event)">Nage-waza </div>
+                <div class="branch-line"></div>
+                <div class="branches-container">
+
+                    <!-- Vertakking van beenworpen -->
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="ashi" draggable="false" ondragstart="drag(event)">Ashi-waza</div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="O-soto-gari" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/O-soto-gari" class="technique-link">O-soto-gari</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="De-ashi-barai" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/De-ashi-barai" class="technique-link">De-ashi-barai</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Okuri-ashi-barai" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Okuri-ashi-barai" class="technique-link">Okuri-ashi-barai</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Hiza-guruma" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Hiza-guruma" class="technique-link">Hiza-guruma</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ko-soto-gake" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ko-soto-gake" class="technique-link">Ko-soto-gake</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="O-uchi-gari" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/O-uchi-gari" class="technique-link">O-uchi-gari</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ko-uchi-gari" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ko-uchi-gari" class="technique-link">Ko-uchi-gari</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="O-soto-guruma" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/O-soto-guruma" class="technique-link">O-soto-guruma</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="O-soto-otoshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/O-soto-otoshi" class="technique-link">O-soto-otoshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ko-soto-gari" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ko-soto-gari" class="technique-link">Ko-soto-gari</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Sasae-tsuri-komi-ashi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Sasae-tsuri-komi-ashi" class="technique-link">Sasae-tsuri-komi-ashi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Harai-tsuri-komi-ashi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Harai-tsuri-komi-ashi" class="technique-link">Harai-tsuri-komi-ashi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="O-soto-gake" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/O-soto-gake" class="technique-link">O-soto-gake</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ko-uchi-maki-komi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ko-uchi-maki-komi" class="technique-link">Ko-uchi-maki-komi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ashi-guruma" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ashi-guruma" class="technique-link">Ashi-guruma</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Uchi-mata1" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Uchi-mata" class="technique-link">Uchi-mata</a>
+                        </div>
+                    </div>                    
+
+                    <!-- Vertakking van heupworpen -->
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="goshi" draggable="false" ondragstart="drag(event)">Goshi-waza</div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Uki-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Uki-goshi" class="technique-link">Uki-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Kubi-nage" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Kubi-nage" class="technique-link">Kubi-nage</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Tsuri-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Tsuri-goshi" class="technique-link">Tsuri-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Koshi-guruma" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Koshi-guruma" class="technique-link">Koshi-guruma</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Harai-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Harai-goshi" class="technique-link">Harai-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Hane-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Hane-goshi" class="technique-link">Hane-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ushiro-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ushiro-goshi" class="technique-link">Ushiro-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Tsuri-komi-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Tsuri-komi-goshi" class="technique-link">Tsuri-komi-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Utsuri-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Utsuri-goshi" class="technique-link">Utsuri-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="O-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/O-goshi" class="technique-link">O-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ko-tsuri-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ko-tsuri-goshi" class="technique-link">Ko-tsuri-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="O-guruma" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/O-guruma" class="technique-link">O-guruma</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Yama-arashi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Yama-arashi" class="technique-link">Yama-arashi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Obi-goshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Obi-goshi" class="technique-link">Obi-goshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Uchi-mata2" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Uchi-mata" class="technique-link">Uchi-mata</a>
+                        </div>
+                    </div>
+
+
+                    <!-- Vertakking van schouderworpen -->
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="kata" draggable="false" ondragstart="drag(event)">Kata-waza</div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Kata-seoi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Kata-seoi" class="technique-link">Kata-seoi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ippon-seoi-nage" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ippon-seoi-nage" class="technique-link">Ippon-seoi-nage</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Kata-guruma" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Kata-guruma" class="technique-link">Kata-guruma</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Seoi-otoshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Seoi-otoshi" class="technique-link">Seoi-otoshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Hidari-kata-seoi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Hidari-kata-seoi" class="technique-link">Hidari-kata-seoi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Morote-seoi-nage" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Morote-seoi-nage" class="technique-link">Morote-seoi-nage</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Eri-seoi-nage" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Eri-seoi-nage" class="technique-link">Eri-seoi-nage</a>
+                        </div>
+                    </div>
+                    
+
+                    <!-- Vertakking van armworpen -->
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="te" draggable="false" ondragstart="drag(event)">Te-waza</div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Tai-otoshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Tai-otoshi" class="technique-link">Tai-otoshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Uki-otoshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Uki-otoshi" class="technique-link">Uki-otoshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Sokui-nage" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Sokui-nage" class="technique-link">Sokui-nage</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Kata-ashi-dori" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Kata-ashi-dori" class="technique-link">Kata-ashi-dori</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ryo-ashi-dori" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ryo-ashi-dori" class="technique-link">Ryo-ashi-dori</a>
+                        </div>
+                    </div>
+                    
+                
+                    <!-- Vertakking van offerworpen -->
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="sutemi" draggable="false" ondragstart="drag(event)">Sutemi-waza</div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Tomoe-nage" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Tomoe-nage" class="technique-link">Tomoe-nage</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Yoko-tomoe-nage" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Yoko-tomoe-nage" class="technique-link">Yoko-tomoe-nage</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Soto-maki-komi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Soto-maki-komi" class="technique-link">Soto-maki-komi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Yoko-gake" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Yoko-gake" class="technique-link">Yoko-gake</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Tani-otoshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Tani-otoshi" class="technique-link">Tani-otoshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Sumi-gaeshi" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Sumi-gaeshi" class="technique-link">Sumi-gaeshi</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Kani-basami" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Kani-basami" class="technique-link">Kani-basami</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Ura-nage" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Ura-nage" class="technique-link">Ura-nage</a>
+                        </div>
+                    </div>
+                    <div class="branch" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="technique" id="Yoko-guruma" draggable="false" ondragstart="drag(event)">
+                            <a href="/tachiwaza/Yoko-guruma" class="technique-link">Yoko-guruma</a>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/dragdrop.js') }}"></script> <!-- Het JavaScript bestand voor drag-and-drop -->
+    <!-- Dit is het script dat de positie van de vlakjes opslaat en herstelt -->
+    <script>
+        // Functie om de positie van het vlakje op te slaan
+        function savePosition(id) {
+            const element = document.getElementById(id);
+            const position = element.getBoundingClientRect();  // Verkrijg de huidige positie
+            localStorage.setItem(id + "_position", JSON.stringify({ top: position.top, left: position.left }));
+        }
+
+        // Functie om de positie van het vlakje in te stellen
+        function setPosition(id) {
+            const position = JSON.parse(localStorage.getItem(id + "_position"));
+            if (position) {
+                const element = document.getElementById(id);
+                element.style.position = "absolute";  // Zorg ervoor dat het absoluut wordt gepositioneerd
+                element.style.top = position.top + "px";
+                element.style.left = position.left + "px";
+            }
+        }
+
+        
+        // Stel de positie in bij het laden van de pagina
+        window.onload = function () {
+            setPosition("nagewaza");  // Herstel de positie van het "nagewaza"-vlakje
+            setPosition("ashi");  // Herstel de positie van het "ashi"-vlakje
+            setPosition("goshi");  // Herstel de positie van het "goshi"-vlakje
+            setPosition("kata");  // Herstel de positie van het "kata"-vlakje
+            setPosition("te");  // Herstel de positie van het "te"-vlakje
+            setPosition("sutemi");  // Herstel de positie van het "sutemi"-vlakje
+            setPosition("O-soto-gari");
+            setPosition("De-ashi-barai");
+            setPosition("Hiza-guruma");
+            setPosition("Ko-soto-gake");
+            setPosition("O-uchi-gari");
+            setPosition("Ko-uchi-gari");
+            setPosition("O-soto-guruma");
+            setPosition("O-soto-otoshi");
+            setPosition("Sasae-tsuri-komi-ashi");
+            setPosition("Harai-tsuri-komi-ashi");
+            setPosition("Ko-uchi-maki-komi");
+            setPosition("Ashi-guruma");
+            setPosition("Uchi-mata1");
+            setPosition("Uchi-mata2");
+            setPosition("Uki-goshi");
+            setPosition("Kubi-nage");
+            setPosition("Tsuri-goshi");
+            setPosition("Koshi-guruma");
+            setPosition("Harai-goshi");
+            setPosition("Hane-goshi");
+            setPosition("Ushiro-goshi");
+            setPosition("Tsuri-komi-goshi");
+            setPosition("Utsuri-goshi");
+            setPosition("O-goshi");
+            setPosition("Ko-tsuri-goshi");
+            setPosition("O-guruma");
+            setPosition("Yama-arashi");
+            setPosition("Obi-goshi");
+            setPosition("Kata-seoi");
+            setPosition("Ippon-seoi-nage");
+            setPosition("Kata-guruma");
+            setPosition("Seoi-otoshi");
+            setPosition("Hidari-kata-seoi");
+            setPosition("Morote-seoi-nage");
+            setPosition("Eri-seoi-nage");
+            setPosition("Tai-otoshi");
+            setPosition("Uki-otoshi");
+            setPosition("Sokui-nage");
+            setPosition("Kata-ashi-dori");
+            setPosition("Ryo-ashi-dori");
+            setPosition("Tomoe-nage");
+            setPosition("Yoko-tomoe-nage");
+            setPosition("Soto-maki-komi");
+            setPosition("Yoko-gake");
+            setPosition("Tani-otoshi");
+            setPosition("Sumi-gaeshi");
+            setPosition("Kani-basami");
+            setPosition("Ura-nage");
+            setPosition("Yoko-guruma");
+            setPosition("Okuri-ashi-barai")
+        };
+
+
+
+        // Functie om draggable uit te schakelen
+        function disableDrag(id) {
+            const element = document.getElementById(id);
+            element.setAttribute("draggable", "false");
+            savePosition(id);  // Sla de positie op voordat je draggable uitschakelt
+        }
+    </script>
+</body>
+</html>

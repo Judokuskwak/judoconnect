@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JudoConnect - Home</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/blackbelt.webp') }}" type="image/x-icon">
+</head>
+<body>
+    <!-- Uitlogknop rechtsboven -->
+    <a href="{{ url_for('logout') }}" class="logout-btn">Log Out</a>
+
+    <!-- Titel JudoConnect in een strakke balk -->
+    <div class="title-container">
+    <div class="title">JudoConnect</div>
+    </div>
+
+
+    <!-- Knoppen onder de titel -->
+    <div class="buttons">
+        <a href="/tachiwaza" class="btn">Tachi-waza</a>
+        <a href="/newaza" class="btn">Ne-waza</a>
+        <a href="/exercises" class="btn">Exercises & games</a>        
+    </div>
+</body>
+</html>
