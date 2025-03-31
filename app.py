@@ -20,8 +20,8 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///videos.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'je-geheime-sleutel'  # Verander dit naar iets unieks
-app.config['1070657144197-jdv61agehj4bk817tsenk15pa0qkhlf6.apps.googleusercontent.com'] = os.getenv('1070657144197-jdv61agehj4bk817tsenk15pa0qkhlf6.apps.googleusercontent.com')
-app.config['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'] = os.getenv('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')
+app.config['GOOGLE_OAUTH_CLIENT_ID'] = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
+app.config['GOOGLE_OAUTH_CLIENT_SECRET'] = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET')
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
