@@ -309,5 +309,5 @@ if __name__ == "__main__":
             db.session.add(Technique(name="Exercises & games", category="exercises"))
         db.session.commit()
     port = int(os.getenv("PORT", 5000))  # Gebruik Render's poort, fallback naar 5000 lokaal
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=False)
 
