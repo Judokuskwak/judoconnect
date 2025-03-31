@@ -15,13 +15,13 @@ from flask_dance.consumer import oauth_authorized
 from sqlalchemy import Integer, String, Boolean, ForeignKey
 from sqlalchemy.ext.mutable import MutableDict
 
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # Allow HTTP voor lokale tests
-
 app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///videos.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'je-geheime-sleutel'  # Verander dit naar iets unieks
+app.config['1070657144197-jdv61agehj4bk817tsenk15pa0qkhlf6.apps.googleusercontent.com'] = os.getenv('1070657144197-jdv61agehj4bk817tsenk15pa0qkhlf6.apps.googleusercontent.com')
+app.config['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'] = os.getenv('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')
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
