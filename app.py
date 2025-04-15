@@ -2,6 +2,7 @@
 # 1070657144197-jdv61agehj4bk817tsenk15pa0qkhlf6.apps.googleusercontent.com',  # Vervang door je eigen Client ID
 # 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',  # Vervang door je eigen Client Secret
 
+# Connection string neon database: postgresql://neondb_owner:npg_KZBcs0XL8YAT@ep-aged-grass-a6ogibfz-pooler.us-west-2.aws.neon.tech/neondb?sslmode=require
 
 # app.py
 
@@ -14,10 +15,12 @@ from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.consumer import oauth_authorized
 from sqlalchemy import Integer, String, Boolean, ForeignKey
 from sqlalchemy.ext.mutable import MutableDict
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///videos.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///videos.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.getenv('SECRET_KEY', 'een_tijdelijke_geheime_sleutel')
 app.config['GOOGLE_OAUTH_CLIENT_ID'] = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
