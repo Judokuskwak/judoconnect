@@ -316,3 +316,6 @@ from flask import send_from_directory
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static/images'), 'blackbelt.webp', mimetype='image/webp')
+
+from dotenv import load_dotenv
+load_dotenv()  # Laad .env-bestand
