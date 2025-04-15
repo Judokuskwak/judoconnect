@@ -53,6 +53,8 @@ class Video(db.Model):
 
 # Google OAuth
 google_bp = make_google_blueprint(
+    client_id='1070657144197-jdv61agehj4bk817tsenk15pa0qkhlf6.apps.googleusercontent.com',  # Vervang door je eigen Client ID
+    client_secret='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',  # Vervang door je eigen Client Secret
     scope=["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"],
     redirect_url='/google_login/google/authorized'
 )
@@ -309,3 +311,8 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))  # Gebruik Render's poort, fallback naar 5000 lokaal
     app.run(host="0.0.0.0", port=port, debug=False)
 
+from flask import send_from_directory
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static/images'), 'blackbelt.webp', mimetype='image/webp')
