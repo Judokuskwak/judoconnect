@@ -2,31 +2,25 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url("images/finaltree.webp"); 
+    background-image: url("images/finaltree.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     font-family: Arial, sans-serif;
     color: white;
-    text-align: center;
     height: 100vh;
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden; /* Zorg ervoor dat er geen ongewenste witte randen zijn */
+    overflow-x: hidden;
 }
 
 /* Standaard stijl slepen voor de technieken */
 .technique {
     padding: 2px 5px;
-    margin: 5px;
+    margin: 0; /* Was margin: 5px */
     background-color: white;
     border-radius: 5px;
     border: 1px solid #ddd;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    cursor: grab;  /* Maak de cursor een aanwijzer om aan te geven dat het element slepen is */
-    position: absolute; /* Laat het vrij bewegen */
+    position: absolute;
     color: black;
     width: auto;
     height: auto;
@@ -47,43 +41,642 @@ body {
     box-sizing: border-box; /* Zorg ervoor dat de padding en border binnen de breedte/hoogte vallen */
 }
 
-/* Visuele feedback wanneer het element wordt gesleept */
+/* Visuele feedback wanneer het element wordt gesleept 
 .technique:active {
     cursor: grabbing;
     opacity: 0.5;
-}
+} */
 
 .tree {
-    display: flex;
-    align-items: center;
-    flex-direction: column-reverse;
-    font-family: Arial, sans-serif;
-}
-
-.branch {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
+    position: relative;
     margin: 0;
     padding: 0;
-}
-
-.branch > .technique {
-    margin: 5px;
-    padding: 2px 5px;
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.branch > .technique:hover {
-    background-color: #ddd;
-}
-
-.branches-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     width: 100%;
+    height: 100vh; /* Zorgt dat .tree het hele scherm beslaat */
 }
+
+/* Vaste posities maken */
+.tree {
+    position: relative;
+}
+
+.technique {
+    position: absolute;
+}
+
+#nagewaza {
+    top: 468.5px;
+    left: 590.5px;
+}
+
+#ashi {
+    top: 348.5px;
+    left: 542.5px;
+}
+
+#O-soto-gari {
+    top: 355.5px;
+    left: 441px;
+}
+
+#De-ashi-barai {
+    top: 293.5px;
+    left: 447.5px;
+}
+
+#Okuri-ashi-barai {
+    top: 238.5px;
+    left: 249.5px;
+}
+
+#Hiza-guruma {
+    top:272.5px;
+    left: 394.5px;
+}
+
+#Ko-soto-gake {
+    top:237.5px;
+    left:  337.5px;
+}
+
+#O-uchi-gari {
+    top: 188.5px;
+    left: 297px;
+}
+
+#Ko-uchi-gari {
+    top: 217.5px;
+    left: 274px;
+}
+
+#O-soto-guruma {
+    top: 310.5px;
+    left: 416px;
+}
+
+#O-soto-otoshi {
+    top: 290.5px;
+    left: 376.5px;
+}
+
+#Ko-soto-gari {
+    top: 257.5px;
+    left: 333px;
+}
+
+#Sasae-tsuri-komi-ashi {
+    top: 280.5px;
+    left: 257px;
+}
+
+#Harai-tsuri-komi-ashi {
+    top: 306.5px;
+    left: 293px;
+}
+
+#O-soto-gake {
+    top: 325.5px;
+    left: 350.5px;
+}
+
+#Ko-uchi-maki-komi {
+    top: 347.5px;
+    left: 337px;
+}
+
+#Ashi-guruma {
+    top: 334.5px !important;
+    left: 416px;
+}
+
+#Uchi-mata1 {
+    top: 218.5px;
+    left: 342px;
+}
+
+#goshi {
+    top: 303.5px;
+    left: 558.5px;
+}
+
+#Uki-goshi {
+    top: 148.5px;
+    left: 536.5px;
+}
+
+#Kubi-nage {
+    top: 120.5px;
+    left: 501px;
+}
+
+#Tsuri-goshi {
+    top: 130.5px !important;
+    left: 440.5px;
+}
+
+#Koshi-guruma {
+    top: 148.5px !important;
+    left: 461.5px;
+}
+
+#Harai-goshi {
+    top: 172.5px;
+    left: 502.5px;
+}
+
+#Hane-goshi {
+    top: 200.5px;
+    left: 524.5px;
+}
+
+#Ushiro-goshi {
+    top: 99.5px;
+    left: 516px;
+}
+
+#Tsuri-komi-goshi {
+    top: 170.5px;
+    left: 414.5px;
+}
+
+#Utsuri-goshi {
+    top: 195.5px;
+    left: 449.5px;
+}
+
+#O-goshi {
+    top: 214.5px;
+    left: 483.5px !important;
+}
+
+#Ko-tsuri-goshi {
+    top: 228.5px;
+    left: 514.5px;
+}
+
+#O-guruma {
+    top: 104.5px;
+    left: 450px;
+}
+
+#Yama-arashi {
+    top: 250.5px;
+    left: 524px;
+}
+
+#Obi-goshi {
+    top: 84.5px;
+    left: 458px;
+}
+
+#Uchi-mata2 {
+    top: 152.5px;
+    left: 408px;
+}
+
+#kata {
+    top: 286.5px;
+    left: 646px;
+}
+
+#Kata-seoi {
+    top: 141.5px;
+    left: 672.5px;
+}
+
+#Ippon-seoi-nage {
+    top: 165.5px !important;
+    left: 631px !important;
+}
+
+#Kata-guruma {
+    top: 258.5px;
+    left: 262.5px;
+}
+
+#Seoi-otoshi {
+    top: 251.5px;
+    left: 632px;
+}
+
+#Hidari-kata-seoi {
+    top: 188.5px;
+    left: 640px;
+}
+
+#Morote-seoi-nage {
+    top: 229px;
+    left: 624px;
+}
+
+#Eri-seoi-nage {
+    top: 209px;
+    left: 627px;
+}
+
+#te {
+    top: 295px;
+    left: 712px;
+}
+
+#Tai-otoshi {
+    top: 220px;
+    left: 753px;
+}
+
+#Uki-otoshi {
+    top: 244px;
+    left: 735px;
+}
+
+#Sokui-nage {
+    top: 196px !important;
+    left: 766px !important;
+}
+
+#Kata-ashi-dori {
+    top: 153px;
+    left: 817px;
+}
+
+#Ryo-ashi-dori {
+    top: 177px;
+    left: 777px;
+}
+
+#sutemi {
+    top: 353px;
+    left: 685px;
+}
+
+#Tomoe-nage {
+    top: 230px;
+    left: 944px;
+}
+
+#Yoko-tomoe-nage {
+    top: 251px;
+    left: 916px;
+}
+
+#Soto-maki-komi {
+    top: 279px;
+    left: 912px;
+}
+
+#Yoko-gake {
+    top: 311px;
+    left: 910px;
+}
+
+#Tani-otoshi {
+    top: 315px !important;
+    left: 843px !important;
+}
+
+#Sumi-gaeshi {
+    top: 337px;
+    left: 862px;
+}
+
+#Kani-basami {
+    top: 359px;
+    left: 901px;
+}
+
+#Ura-nage {
+    top: 340px !important;
+    left: 800px !important;
+}
+
+#Yoko-guruma {
+    top: 366px;
+    left: 836px;
+}
+
+/* Newaza-posities (huidige vraag) */
+#Katame-waza {
+    top: 496.5px;
+    left: 573px;
+}
+
+#Osei-komi-waza {
+    top: 358.5px;
+    left: 532px;
+}
+
+#Kesa-katame {
+    top: 290.5px;
+    left: 340px !important;
+}
+
+#Kata-katame {
+    top: 306.5px !important;
+    left: 280px !important;
+}
+
+#Kami-shiho-katame {
+    top: 225.5px;
+    left: 311.5px;
+}
+
+#Kuzure-kami-shiho-katame {
+    top: 187.5px;
+    left: 281.5px;
+}
+
+#Ushiro-kesa-gatame {
+    top: 350.5px;
+    left: 379px;
+}
+
+#Gyaku-kesa-katame {
+    top: 204.5px !important;
+    left: 200px !important;
+}
+
+#Yoko-shiho-katame {
+    top: 368.5px;
+    left: 405px;
+}
+
+#Makura-kesa-katame {
+    top: 250.5px !important;
+    left: 390px !important;
+}
+
+#Mune-katame {
+    top: 332.5px;
+    left: 311px;
+}
+
+#Tate-shiho-katame {
+    top: 224.5px;
+    left: 214.5px;
+}
+
+#Kuzure-kesa-katame {
+    top: 311.5px;
+    left: 433px;
+}
+
+#Kata-osae-katame {
+    top: 208.5px !important;
+    left: 304.5px;
+}
+
+#Ura-katame {
+    top: 330.5px;
+    left: 424px;
+}
+
+#Kashira-katame {
+    top: 261.5px !important;
+    left: 300px !important;
+}
+
+#Ura-shiho-katame {
+    top: 269.5px;
+    left: 376.5px;
+}
+
+#Kami-sankaku-katame {
+    top: 286.5px;
+    left: 408.5px;
+}
+
+#Kuzure-yoko-shiho {
+    top: 242.5px;
+    left: 258px;
+}
+
+#Tate-sankaku-katame {
+    top: 280.5px !important;
+    left: 237.5px;
+}
+
+#Uki-katame {
+    top: 312.5px !important;
+    left: 355.5px;
+}
+
+#Kansetsu-waza {
+    top: 326.5px;
+    left: 650.5px;
+}
+
+#Ude-hishigi-juji-katame {
+    top: 183.5px;
+    left: 773.5px;
+}
+
+#Ude-garami {
+    top: 201.5px;
+    left: 784px;
+}
+
+#Ude-hishigi {
+    top: 184.5px;
+    left: 917px;
+}
+
+#Yoko-hiza-katame {
+    top: 206.5px;
+    left: 851.5px;
+}
+
+#Kami-ude-hishigi-juji-katame {
+    top: 207.5px;
+    left: 936.5px;
+}
+
+#Yoko-ude-hishigi {
+    top: 218.5px;
+    left: 747px;
+}
+
+#Kami-hiza-katame {
+    top: 227.5px;
+    left: 876px;
+}
+
+#Ude-hishigi-henka-waza {
+    top: 227.5px;
+    left: 961px;
+}
+
+#Gyaku-juji {
+    top: 238.5px;
+    left: 775.5px;
+}
+
+#Shime-garami {
+    top: 244.5px;
+    left: 845.5px;
+}
+
+#Hiza-katame {
+    top: 248.5px;
+    left: 954px;
+}
+
+#Hara-katame {
+    top: 261.5px;
+    left: 815.5px;
+}
+
+#Ashi-katame {
+    top: 268.5px;
+    left: 885.5px;
+}
+
+#Ude-garami-henka-waza {
+    top: 280.5px;
+    left: 764px;
+}
+
+#Kesa-garami {
+    top: 299.5px;
+    left: 797px;
+}
+
+#Kuzure-kami-shiho-garami {
+    top: 290.5px;
+    left: 892.5px;
+}
+
+#Gyaku-kesa-garami {
+    top: 306.5px;
+    left: 910px;
+}
+
+#Gyaku-te-kubi {
+    top: 384.5px;
+    left: 741.5px;
+}
+
+#Hiji-maki-komi {
+    top: 317.5px;
+    left: 795px;
+}
+
+#Kanuki-katame {
+    top: 362.5px;
+    left: 767.5px;
+}
+
+#Ude-hishigi-hiza-katame {
+    top: 341.5px;
+    left: 771px;
+}
+
+#Shime-waza {
+    top: 303.5px;
+    left: 560.5px;
+}
+
+#Kata-juji-jime {
+    top: 224.5px;
+    left: 555.5px;
+}
+
+#Name-juji-jime {
+    top: 211.5px;
+    left: 497.5px;
+}
+
+#Gyaku-juji-jime {
+    top: 194.5px;
+    left: 531.5px;
+}
+
+#Yoko-juji-jime {
+    top: 65.5px;
+    left: 430.5px !important;
+}
+
+#Ushiro-jime {
+    top: 181.5px;
+    left: 478.5px !important;
+}
+
+#Okuri-eri-jime {
+    top: 134.5px;
+    left: 433.5px !important;
+}
+
+#Kata-ha-jime {
+    top: 166.5px;
+    left: 559px;
+}
+
+#Hadaka-jime {
+    top: 72.5px;
+    left: 632px !important;
+}
+
+#Ebi-garami {
+    top: 46.5px;
+    left: 505.5px;
+}
+
+#Tomoe-jime {
+    top: 97.5px;
+    left: 646px !important;
+}
+
+#Narabi-juji-jime {
+    top: 160.5px !important;
+    left: 473.5px !important;
+}
+
+#Katate-jime {
+    top: 142.5px !important;
+    left: 500.5px !important;
+}
+
+#Sode-guruma {
+    top: 145.5px !important;
+    left: 560px !important;
+}
+
+#Hidari-ashi-jime {
+    top: 117.5px;
+    left: 397px !important;
+}
+
+#Kagato-jime {
+    top: 78.5px;
+    left: 559.5px;
+}
+
+#Kami-shiho-jime {
+    top: 115.5px;
+    left: 473px;
+}
+
+#Kami-shiho-ashi-jime {
+    top: 46.5px;
+    left: 588.5px;
+}
+
+#Kami-shiho-basami {
+    top: 122.5px;
+    left: 563px;
+}
+
+#Gyaku-okuri-eri {
+    top: 95.5px;
+    left: 562.5px;
+}
+
+#Gaeshi-jime {
+    top: 67.5px;
+    left: 498.5px;
+}
+
+#Gyaku-gaeshi-jime {
+    top: 90.5px;
+    left: 466px !important;
+}
+
