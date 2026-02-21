@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if style == 'gi' %}
+        Gi BJJ - Technieken
+    {% elif style == 'nogi' %}
+        No-Gi BJJ - Technieken
+    {% else %}
+        BJJ Connect - Technieken
+    {% endif %}
+    {% if cat %} - {{ cat | title }}{% endif %}
+    {% if subcat %} → {{ subcat | title }}{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Hoofdtitel -->
+    <h1 class="text-center mb-4">
+        {% if style == 'gi' %}
+            Gi BJJ
+        {% elif style == 'nogi' %}
+            No-Gi BJJ
+        {% else %}
+            {{ style | capitalize }} BJJ
+        {% endif %}
+        {% if cat %} - {{ cat | title }}{% endif %}
+        {% if subcat %} → {{ subcat | title }}{% endif %}
+    </h1>
+
+    <!-- Zoekbalk -->
+    <form method="GET" class="mb-4 mx-auto" style="max-width: 600px;">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Zoek op label/techniek..." value="{{ search_query }}">
+            <button class="btn btn-outline-secondary" type="submit">Zoek</button>
+        </div>
+    </form>
+
+    <!-- De La Riva Shorts (alleen bijs De La Riva) -->
+    {% if subcat in ['dlr', 'delariva', 'de_la_riva'] %}
+        <h3 class="mt-5 mb-4 text-center">De La Riva Guard </h3>
+        <div class="row g-4 justify-content-center">
+            <!-- Short 1 -->
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow-sm">
+                    <iframe 
+                        width="100%" 
+                        height="500" 
+                        src="https://www.youtube.com/embed/GH_MZZsueqY?rel=0" 
+                        title="De La Riva Guard Short 1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Short 2 -->
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow-sm">
+                    <iframe 
+                        width="100%" 
+                        height="500" 
+                        src="https://www.youtube.com/embed/TaJhA8LI41g?rel=0" 
+                        title="De La Riva Guard Short 2" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Database-video's (bestaande lijst) -->
+    {% if videos %}
+        <h3 class="mt-5 mb-3 text-center">Alle Video's in deze categorie</h3>
+        <div class="row g-4">
+            {% for video in videos %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body p-0">
+                            <iframe 
+                                width="100%" 
+                                height="315" 
+                                src="{{ video.embedded_url }}" 
+                                frameborder="0" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="card-footer text-center text-muted">
+                            Gem. rating: {{ video.average_rating | round(1) }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted mt-5">
+            Geen extra video's gevonden{% if search_query %} voor "{{ search_query }}"{% endif %} in deze categorie.
+        </p>
+    {% endif %}
+</div>
+{% endblock %}

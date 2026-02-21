@@ -32,6 +32,35 @@ migrate = Migrate(app, db)
 # Login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+# === SNELLE DEV BYPASS - ALTIJD INGECLOGD ===
+from flask_login import login_user
+
+class FakeUser(UserMixin):
+    id = 999
+    email = "dev@bjjconnect.local"
+    name = "Dev User"
+    is_admin = True
+    is_authenticated = True
+    is_active = True
+    is_anonymous = False
+
+    def get_id(self):
+        return str(self.id)
+
+@login_manager.user_loader
+def load_user(user_id):
+    # Forceer fake user bij elke load
+    return FakeUser()
+
+@app.before_request
+def auto_login_for_dev():
+    if not current_user.is_authenticated:
+        fake_user = FakeUser()
+        login_user(fake_user, remember=False)
+        print("Dev auto-login uitgevoerd")  # zie je dit in terminal? Dan werkt het
+# === EINDE BYPASS ===
+
 login_manager.login_view = 'google.login'
 
 # Modellen
@@ -39,6 +68,12 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
     name = db.Column(db.String(150), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+
+    def __init__(self, email, name, is_admin=False):
+        self.email = email
+        self.name = name
+        self.is_admin = is_admin
 
 class Technique(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -79,9 +114,13 @@ def google_logged_in(blueprint, token):
     if not email:
         return False
     user = User.query.filter_by(email=email).first()
+    admin_email = 'judoconnect@gmail.com'  # Explicitly set your admin email
     if user is None:
-        user = User(email=email, name=user_info.get('name', 'Onbekend'))
+        user = User(email=email, name=user_info.get('name', 'Onbekend'), is_admin=email == admin_email)
         db.session.add(user)
+        db.session.commit()
+    else:
+        user.is_admin = email == admin_email  # Update bestaande gebruiker
         db.session.commit()
     login_user(user)
     return redirect(url_for('home'))
@@ -90,67 +129,79 @@ def google_logged_in(blueprint, token):
 @app.route('/')
 def home():
     if not current_user.is_authenticated:
-        return redirect(url_for('google.login'))
+        return render_template('homenologin.html')
     return render_template('home.html')
 
-@app.route('/tachiwaza')
+@app.route('/techniques/<style>')
+@app.route('/techniques/<style>/<cat>')
+@app.route('/techniques/<style>/<cat>/<subcat>')  # <-- dit is nieuw!
 @login_required
-def tachiwaza():
-    techniques = Technique.query.filter_by(category="tachiwaza").all()
-    return render_template('tachiwaza.html', techniques=techniques)
+def techniques(style, cat=None, subcat=None):
+    # Zorg dat style altijd lowercase is (voor consistente filtering)
+    style_lower = style.lower()
 
-@app.route('/newaza')
-@login_required
-def newaza():
-    techniques = Technique.query.filter_by(category="newaza").all()
-    return render_template('newaza.html', techniques=techniques)
+    # Start query
+    query = Video.query.filter(Video.labels.contains([style_lower]))
 
-@app.route('/exercises', methods=['GET', 'POST'])
-@login_required
-def exercises():
-    # Zoek of maak de "Exercises & games" techniek
-    tech = Technique.query.filter_by(name="Exercises & games").first()
-    if not tech:
-        tech = Technique(name="Exercises & games", category="exercises")
-        db.session.add(tech)
-        db.session.commit()
+    if cat:
+        query = query.filter(Video.labels.contains([cat.lower()]))
 
-    if request.method == 'POST':
-        youtube_url = request.form.get('youtube_url')
-        labels_input = request.form.get('labels', '')
-        print(f"Received youtube_url: {youtube_url}")
-        print(f"Received labels: {labels_input}")
-        if not youtube_url:
-            return "Geen YouTube URL opgegeven", 400
-        if "youtube.com/watch?v=" not in youtube_url and "youtu.be/" not in youtube_url:
-            return f"Ongeldige YouTube URL: {youtube_url}", 400
-        video_id = youtube_url.split("v=")[-1].split("&")[0] if "v=" in youtube_url else youtube_url.split("/")[-1]
-        embedded_url = f"https://www.youtube.com/embed/{video_id}"
-        labels = [label.strip() for label in labels_input.split(',') if label.strip()] if labels_input else []
-        new_video = Video(youtube_url=youtube_url, embedded_url=embedded_url, technique_id=tech.id, labels=labels)
-        try:
-            db.session.add(new_video)
-            db.session.commit()
-            return redirect(url_for('exercises'))
-        except Exception as e:
-            db.session.rollback()
-            return f"Fout bij toevoegen video: {str(e)}", 500
+    if subcat:
+        query = query.filter(Video.labels.contains([subcat.lower()]))
 
-    search_query = request.args.get('search', '').lower()
-    videos = Video.query.filter_by(technique_id=tech.id).all()
-    if search_query:
-        videos = [v for v in videos if any(search_query in label.lower() for label in v.labels)]
-    
-    videos = sorted(videos, key=lambda v: v.average_rating if v.average_rating is not None else 0, reverse=True)
+    videos = query.order_by(Video.average_rating.desc()).all()
 
-    videos_with_status = [
-        {'video': video, 'has_voted': str(current_user.id) in video.votes}
-        for video in videos
+    # Render met alle variabelen
+    return render_template(
+        'techniques.html',
+        style=style,          # origineel uit URL, bijv. 'gi' of 'nogi'
+        display_style='Gi' if style_lower == 'gi' else 'No-Gi' if style_lower == 'nogi' else style.capitalize(),
+        cat=cat,
+        subcat=subcat,
+        videos=videos,
+        # Als je nog andere vars hebt, voeg ze hier toe
+    )
+
+def techniques(style, cat=None):
+    if style not in ['Gi', 'No-gi']:
+        return "Ongeldige stijl", 404
+
+    # Basis query: alle videos, filter op style via labels
+    query = Video.query.filter(Video.labels.contains([style]))
+
+    # Als categorie gekozen (optioneel)
+    if cat:
+        query = query.filter(Video.labels.contains([cat]))  # bijv. ['guard']
+
+    videos = query.order_by(Video.average_rating.desc()).all()
+
+    # Voor sidebar: lijst met categorieën (hardcoded of uit DB)
+    categories = [
+        {'name': 'Stand-up / Takedowns', 'slug': 'standup'},
+        {'name': 'Guard', 'slug': 'guard'},
+        {'name': 'Guard Passing', 'slug': 'passing'},
+        {'name': 'Top Positions', 'slug': 'top'},
+        {'name': 'Submissions', 'slug': 'submissions'},
+        {'name': 'Escapes', 'slug': 'escapes'},
+        {'name': 'Drills & Games', 'slug': 'drills'}
     ]
 
-    return render_template('exercises.html', videos_with_status=videos_with_status, search_query=search_query)
+    # Zoekbalk query (als je GET ?search=... hebt)
+    search_query = request.args.get('search', '').strip()
+    if search_query:
+        # Simpele filter op labels of later op title/description als je die toevoegt
+        search_lower = search_query.lower()
+        videos = [v for v in videos if any(search_lower in label.lower() for label in v.labels)]
 
-@app.route('/tachiwaza/<technique>', methods=['GET', 'POST'])
+    return render_template('techniques.html',
+                           style=style.capitalize(),  # 'Gi' of 'No-Gi'
+                           videos=videos,
+                           categories=categories,
+                           current_cat=cat,
+                           search_query=search_query)
+
+                           
+@app.route('/tachiwaza/<technique>', methods=['GET'])
 @login_required
 def technique_page(technique):
     tech = Technique.query.filter_by(name=technique).first()
@@ -158,27 +209,6 @@ def technique_page(technique):
         tech = Technique(name=technique, category="tachiwaza")
         db.session.add(tech)
         db.session.commit()
-
-    if request.method == 'POST':
-        youtube_url = request.form.get('youtube_url')
-        labels_input = request.form.get('labels', '')
-        print(f"Received youtube_url: {youtube_url}")
-        print(f"Received labels: {labels_input}")
-        if not youtube_url:
-            return "Geen YouTube URL opgegeven", 400
-        if "youtube.com/watch?v=" not in youtube_url and "youtu.be/" not in youtube_url:
-            return f"Ongeldige YouTube URL: {youtube_url}", 400
-        video_id = youtube_url.split("v=")[-1].split("&")[0] if "v=" in youtube_url else youtube_url.split("/")[-1]
-        embedded_url = f"https://www.youtube.com/embed/{video_id}"
-        labels = [label.strip() for label in labels_input.split(',') if label.strip()] if labels_input else []
-        new_video = Video(youtube_url=youtube_url, embedded_url=embedded_url, technique_id=tech.id, labels=labels)
-        try:
-            db.session.add(new_video)
-            db.session.commit()
-            return redirect(url_for('technique_page', technique=technique))
-        except Exception as e:
-            db.session.rollback()
-            return f"Fout bij toevoegen video: {str(e)}", 500
 
     search_query = request.args.get('search', '').lower()
     videos = Video.query.filter_by(technique_id=tech.id).all()
@@ -195,11 +225,64 @@ def technique_page(technique):
 
     return render_template('tachiwaza/technique.html', technique=technique, videos_with_status=videos_with_status, search_query=search_query)
 
+@app.route('/admin/upload', methods=['GET', 'POST'])
+@app.route('/admin/upload/<technique>', methods=['GET', 'POST'])
+@login_required
+def admin_upload(technique=None):
+    if not current_user.is_admin:
+        return "Toegang geweigerd", 403
+    print(f"Request method: {request.method}, Technique: {technique}, User: {current_user.email}")
+    if request.method == 'POST':
+        destination = request.form.get('destination') or f"/tachiwaza/{technique}" if technique else "/exercises"
+        youtube_url = request.form.get('youtube_url')
+        labels_input = request.form.get('labels', '')
+        print(f"Form data - URL: {youtube_url}, Labels: {labels_input}")
+        if not youtube_url:
+            return "Geen YouTube URL opgegeven", 400
+        if "youtube.com/watch?v=" not in youtube_url and "youtu.be/" not in youtube_url:
+            return f"Ongeldige YouTube URL: {youtube_url}", 400
+        video_id = youtube_url.split("v=")[-1].split("&")[0] if "v=" in youtube_url else youtube_url.split("/")[-1]
+        embedded_url = f"https://www.youtube.com/embed/{video_id}"
+        labels = [label.strip() for label in labels_input.split(',') if label.strip()] if labels_input else []
+
+        if destination == '/exercises':
+            tech = Technique.query.filter_by(name="Exercises & games").first()
+            if not tech:
+                tech = Technique(name="Exercises & games", category="exercises")
+                db.session.add(tech)
+                db.session.commit()
+        else:
+            category = "tachiwaza" if destination.startswith('/tachiwaza') else "newaza"
+            tech_name = technique if technique else "Ne-waza"
+            tech = Technique.query.filter_by(name=tech_name, category=category).first()
+            if not tech:
+                tech = Technique(name=tech_name, category=category)
+                db.session.add(tech)
+                db.session.commit()
+
+        new_video = Video(youtube_url=youtube_url, embedded_url=embedded_url, technique_id=tech.id, labels=labels)
+        try:
+            db.session.add(new_video)
+            db.session.commit()
+            print(f"Video added successfully, redirecting to {destination}")
+            return redirect(destination)
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error adding video: {str(e)}")
+            return f"Fout bij toevoegen video: {str(e)}", 500
+    techniques = Technique.query.filter_by(category="tachiwaza").all()
+    return render_template('admin_upload.html', techniques=techniques)
+
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/login')
+def login():
+    return redirect(url_for('google.login'))
 
 @app.route('/vote/tachiwaza/<technique>', methods=['POST'])
 @login_required

@@ -8,17 +8,19 @@
     <link rel="icon" href="{{ url_for('static', filename='images/blackbelt.webp') }}" type="image/x-icon">
 </head>
 <body>
-    <h1>Exercises & games</h1>
-    <p>Add a YouTube-video for Exercises & games</p>
-    
+    <h1>{{ technique }}</h1>
     <div class="form-container">
-        <form method="POST" class="upload-form">
-            <input type="text" name="youtube_url" placeholder="Enter YouTube-URL" required>
-            <input type="text" name="labels" placeholder="Labels (e.g. Fun, Warm-up)">
-            <button type="submit" class="add-button">Add</button>
-        </form>
+        {% if current_user.is_admin %}
+            <p>Add a YouTube-video for {{ technique }}</p>
+            <form method="POST" action="{{ url_for('admin_upload', technique=technique) }}" class="upload-form">
+                <input type="text" name="youtube_url" placeholder="Enter YouTube-URL" required>
+                <input type="text" name="labels" placeholder="Labels (e.g. Stiff arms, Right-right)">
+                <button type="submit" class="add-button">Add</button>
+            </form>
+        {% endif %}
+        <!-- Zoekbalk onafhankelijk naast de upload-form -->
         <form method="GET" class="search-form">
-            <input type="text" name="search" placeholder="Search for labels" value="{{ search_query }}">
+            <input type="text" name="search" placeholder="Search for labels (e.g. Stiff arms, Right-right)" value="{{ search_query }}">
             <button type="submit" class="search-button">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="10" cy="10" r="7" stroke="black" stroke-width="2"/>

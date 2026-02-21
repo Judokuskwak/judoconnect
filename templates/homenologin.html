@@ -8,19 +8,20 @@
     <link rel="icon" href="{{ url_for('static', filename='images/blackbelt.webp') }}" type="image/x-icon">
 </head>
 <body>
-    <!-- Uitlogknop rechtsboven -->
-    <a href="{{ url_for('logout') }}" class="logout-btn">Log Out</a>
+    <!-- Inlogknop rechtsboven -->
+    <a href="{{ url_for('login') }}" class="logout-btn">Log in</a>
+    
 
-    <!-- Titel JudoConnect in een strakke balk -->
+    <!-- Titel BBJconnect in een strakke balk -->
     <div class="title-container">
-    <div class="title">BJJconnect</div>
+    <div class="title">BJJConnect</div>
     </div>
 
 
     <!-- Knoppen onder de titel -->
     <div class="buttons">
-        <a href="{{ url_for('techniques', style='Gi') }}" class="btn btn-primary btn-lg">Gi</a>
-        <a href="{{ url_for('techniques', style='No-gi') }}" class="btn btn-primary btn-lg">No-Gi</a>
+        <span class="btn">Gi</span>
+        <span class="btn">No gi</span>       
     </div>
 </body>
 </html>
