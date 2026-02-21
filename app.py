@@ -13,7 +13,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.consumer import oauth_authorized
-from sqlalchemy import Integer, String, Boolean, ForeignKey
+from sqlalchemy import Integer, String, cast, Boolean, ForeignKey
 from sqlalchemy.ext.mutable import MutableDict
 from dotenv import load_dotenv
 load_dotenv()
@@ -134,46 +134,50 @@ def home():
 
 @app.route('/techniques/<style>')
 @app.route('/techniques/<style>/<cat>')
-@app.route('/techniques/<style>/<cat>/<subcat>')  # <-- dit is nieuw!
-@login_required
+@app.route('/techniques/<style>/<cat>/<subcat>')
 def techniques(style, cat=None, subcat=None):
-    # Zorg dat style altijd lowercase is (voor consistente filtering)
-    style_lower = style.lower()
-
-    # Start query
-    query = Video.query.filter(Video.labels.contains([style_lower]))
-
-    if cat:
-        query = query.filter(Video.labels.contains([cat.lower()]))
-
-    if subcat:
-        query = query.filter(Video.labels.contains([subcat.lower()]))
-
-    videos = query.order_by(Video.average_rating.desc()).all()
-
-    # Render met alle variabelen
-    return render_template(
-        'techniques.html',
-        style=style,          # origineel uit URL, bijv. 'gi' of 'nogi'
-        display_style='Gi' if style_lower == 'gi' else 'No-Gi' if style_lower == 'nogi' else style.capitalize(),
-        cat=cat,
-        subcat=subcat,
-        videos=videos,
-        # Als je nog andere vars hebt, voeg ze hier toe
-    )
-
-def techniques(style, cat=None):
+    # Validatie: alleen 'Gi' of 'No-gi' toegestaan
     if style not in ['Gi', 'No-gi']:
         return "Ongeldige stijl", 404
 
-    # Basis query: alle videos, filter op style via labels
-    query = Video.query.filter(Video.labels.contains([style]))
+    # Alle waarden lowercase maken voor consistente filtering
+    style_lower = style.lower()
+    cat_lower = cat.lower() if cat else None
+    subcat_lower = subcat.lower() if subcat else None
 
-    # Als categorie gekozen (optioneel)
-    if cat:
-        query = query.filter(Video.labels.contains([cat]))  # bijv. ['guard']
+    # Basis query starten
+    query = Video.query
 
+    # Filter op style (altijd aanwezig)
+    query = query.filter(
+        cast(Video.labels, String).ilike(f'%\"{style_lower}\"%')
+    )
+
+    # Optioneel filteren op cat
+    if cat_lower:
+        query = query.filter(
+            cast(Video.labels, String).ilike(f'%\"{cat_lower}\"%')
+        )
+
+    # Optioneel filteren op subcat
+    if subcat_lower:
+        query = query.filter(
+            cast(Video.labels, String).ilike(f'%\"{subcat_lower}\"%')
+        )
+
+    # Sorteer op gemiddelde rating (hoog naar laag)
     videos = query.order_by(Video.average_rating.desc()).all()
+
+    # Render de template met alle relevante variabelen
+    return render_template(
+        'techniques.html',
+        style=style,
+        cat=cat,
+        subcat=subcat,
+        videos=videos,
+        # Voeg hier extra variabelen toe als je template ze nodig heeft
+        # Bijv. current_cat=cat, display_style=style, etc.
+    )
 
     # Voor sidebar: lijst met categorieën (hardcoded of uit DB)
     categories = [
