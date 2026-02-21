@@ -132,14 +132,10 @@ def home():
         return render_template('homenologin.html')
     return render_template('home.html')
 
-@app.route('/techniques/<style>')
+@app.route('/techniques/<style>/<cat>/<subcat>')   # meest specifiek eerst
 @app.route('/techniques/<style>/<cat>')
-@app.route('/techniques/<style>/<cat>/<subcat>')
-def techniques(style, cat=None, subcat=None):
-    # Validatie: alleen 'Gi' of 'No-gi' toegestaan
-    if style not in ['Gi', 'No-gi']:
-        return "Ongeldige stijl", 404
-
+@app.route('/techniques/<style>')  
+def techniques(style, cat=None, subcat=None):              
     # Alle waarden lowercase maken voor consistente filtering
     style_lower = style.lower()
     cat_lower = cat.lower() if cat else None
