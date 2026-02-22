@@ -16,7 +16,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='technique.css') }}">
 
     <style>
-        /* Algemene basis */
         body {
             margin: 0;
             padding: 0;
@@ -49,7 +48,7 @@
             width: 240px;
         }
 
-        /* Hamburger-knop – alleen op mobiel */
+        /* Hamburger – alleen mobiel */
         .hamburger {
             position: fixed;
             top: 12px;
@@ -86,30 +85,47 @@
             opacity: 0.92;
         }
 
-        #sub-sidebar.expanded,
-        #main-sidebar:hover ~ #sub-sidebar {
-            width: 200px;
+        #sub-sidebar.expanded {
+            width: 200px !important;
         }
 
+        /* Tekst in sub-sidebar standaard verborgen */
+        #sub-sidebar .sidebar-content,
+        #sub-sidebar .menu-text,
+        #sub-sidebar h5 {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease;
+        }
+
+        /* Tekst zichtbaar alleen als uitgeklapt (na klik) */
+        #sub-sidebar.expanded .sidebar-content,
+        #sub-sidebar.expanded .menu-text,
+        #sub-sidebar.expanded h5 {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Pijltje zwart, geen rondje */
         .sub-sidebar-toggle {
             position: absolute;
-            top: 10px;
-            right: 8px;
+            top: 14px;
+            right: 12px;
             cursor: pointer;
-            font-size: 1.4rem;
-            color: #495057;
-            z-index: 1000;
-            background: #f8f9fa;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            font-size: 1.9rem;
+            color: #000;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+            z-index: 1001;
         }
 
-        /* Submit-video tekst */
+        .sub-sidebar-toggle:hover {
+            color: #222;
+        }
+
+        /* Submit-video in hoofd-sidebar */
         #main-sidebar .submit-video {
             opacity: 0;
             visibility: hidden;
@@ -124,108 +140,78 @@
             pointer-events: auto;
         }
 
-        /* Responsive regels */
+        /* Home-knop */
+        .home-btn {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 1100;
+            width: 48px;
+            height: 48px;
+            background: transparent;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-size: 1.6rem;
+            text-decoration: none;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        /* Responsive */
         @media (max-width: 767.98px) {
-            .hamburger {
-                display: flex;
-            }
-
-            #main-sidebar {
-                width: 240px !important;
-                left: -240px;
-                transition: left 0.35s ease;
-                box-shadow: 2px 0 8px rgba(0,0,0,0.3);
-            }
-
-            #main-sidebar.active {
-                left: 0 !important;
-            }
-
-            main {
-                margin-left: 0 !important;
-                transition: margin-left 0.35s ease;
-            }
-
-            #main-sidebar.active ~ main {
-                margin-left: 240px !important;
-            }
-
-            #sub-sidebar {
-                display: none;
-            }
-
-            /* Mobiel: grotere tekst, kleinere iframes */
-            h1, h2, h3 {
-                font-size: 1.6rem !important;
-            }
-
-            .container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-
-            iframe {
-                height: 200px !important;
-            }
-
-            .card {
-                margin-bottom: 1.5rem;
-            }
-
-            .nav-link {
-                font-size: 1rem;
-            }
+            .hamburger { display: flex; }
+            #main-sidebar { width: 240px !important; left: -240px; transition: left 0.35s ease; box-shadow: 2px 0 8px rgba(0,0,0,0.3); }
+            #main-sidebar.active { left: 0 !important; }
+            main { margin-left: 0 !important; transition: margin-left 0.35s ease; }
+            #main-sidebar.active ~ main { margin-left: 240px !important; }
+            #sub-sidebar { display: none; }
+            h1, h2, h3 { font-size: 1.6rem !important; }
+            .container { padding: 0 1rem; }
+            iframe { height: 200px !important; }
+            .card { margin-bottom: 1.5rem; }
+            .nav-link { font-size: 1rem; }
         }
 
         @media (min-width: 768px) {
-            #main-sidebar {
-                left: 0 !important;
-                width: 80px !important;
-            }
-
-            #main-sidebar:hover {
-                width: 240px !important;
-            }
-
-            main {
-                margin-left: 80px !important;
-                transition: margin-left 0.35s ease;
-            }
-
-            #main-sidebar:hover ~ main {
-                margin-left: 240px !important;
-            }
-
-            #sub-sidebar:hover ~ main,
-            #sub-sidebar.expanded ~ main {
-                margin-left: 280px !important;
-            }
+            #main-sidebar { left: 0 !important; width: 80px !important; }
+            #main-sidebar:hover { width: 240px !important; }
+            main { margin-left: 80px !important; transition: margin-left 0.35s ease; }
+            #main-sidebar:hover ~ main { margin-left: 240px !important; }
+            #sub-sidebar.expanded ~ main { margin-left: 280px !important; }
         }
 
-        /* Gemeenschappelijke sidebar-stijlen */
-        .sidebar .menu-text {
+        /* Hoofd-sidebar gemeenschappelijk */
+        #main-sidebar .menu-text {
             opacity: 0;
             transition: opacity 0.25s ease;
         }
 
-        .sidebar:hover .menu-text,
-        .sidebar.active .menu-text {
+        #main-sidebar:hover .menu-text,
+        #main-sidebar.active .menu-text {
             opacity: 1;
         }
 
         .sidebar .nav-link {
             height: 56px;
             padding-left: 16px !important;
-            margin: 0 !important;
+            margin: 0;
             display: flex;
             align-items: center;
-            justify-content: flex-start !important;
+            justify-content: flex-start;
             color: #495057;
             transition: all 0.2s;
         }
 
-        .sidebar:hover .nav-link,
-        .sidebar.active .nav-link {
+        #main-sidebar:hover .nav-link,
+        #main-sidebar.active .nav-link {
             padding-left: 16px !important;
         }
 
@@ -233,9 +219,8 @@
             background-color: #e9ecef;
         }
 
-        .sidebar .nav-link.active {
-            background-color: #0d6efd;
-            color: white !important;
+        #sub-sidebar.expanded .nav-link.active {
+            background-color: #97a7b8;
         }
 
         .sidebar .icon-wrapper {
@@ -253,8 +238,8 @@
             margin: 0 !important;
         }
 
-        .sidebar h4,
-        .sidebar h5 {
+        #main-sidebar h4,
+        #main-sidebar h5 {
             opacity: 0;
             transition: opacity 0.3s;
             margin: 1.5rem 0 0.5rem;
@@ -262,36 +247,11 @@
             font-size: 1.1rem;
         }
 
-        .sidebar:hover h4,
-        .sidebar:hover h5,
-        .sidebar.active h4,
-        .sidebar.active h5 {
+        #main-sidebar:hover h4,
+        #main-sidebar:hover h5,
+        #main-sidebar.active h4,
+        #main-sidebar.active h5 {
             opacity: 1;
-        }
-
-        .home-btn {
-            position: fixed;
-            top: 16px;
-            right: 16px;
-            z-index: 1100;
-            width: 48px;
-            height: 48px;
-            background-color: #0d6efd;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            font-size: 1.6rem;
-            text-decoration: none;
-        }
-
-        .home-btn:hover {
-            transform: scale(1.15);
-            background-color: #0b5ed7;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
         }
     </style>
 </head>
@@ -387,64 +347,66 @@
             <nav id="sub-sidebar" class="sidebar">
                 <div class="position-sticky pt-5">
                     <span class="sub-sidebar-toggle" onclick="toggleSubSidebar()">›</span>
-                    <h5 class="text-center"> {{ cat | title }}</h5>
-                    <ul class="nav flex-column">
-                        {% if cat == 'guard' %}
-                            <li class="nav-item">
-                                <a class="nav-link {% if subcat == 'closed' %}active{% endif %}"
-                                   href="{{ url_for('techniques', style=style|lower, cat='guard', subcat='closed') }}">
-                                    <span class="menu-text ms-3">Closed Guard</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if subcat == 'dlr' %}active{% endif %}"
-                                   href="{{ url_for('techniques', style=style|lower, cat='guard', subcat='dlr') }}">
-                                    <span class="menu-text ms-3">De La Riva</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if subcat == 'butterfly' %}active{% endif %}"
-                                   href="{{ url_for('techniques', style=style|lower, cat='guard', subcat='butterfly') }}">
-                                    <span class="menu-text ms-3">Butterfly Guard</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if subcat == 'spider' %}active{% endif %}"
-                                   href="{{ url_for('techniques', style=style|lower, cat='guard', subcat='spider') }}">
-                                    <span class="menu-text ms-3">Spider Guard</span>
-                                </a>
-                            </li>
-                            <!-- Voeg hier meer toe voor guard -->
-                        {% elif cat == 'passing' %}
-                            <li class="nav-item">
-                                <a class="nav-link {% if subcat == 'knee-slice' %}active{% endif %}"
-                                   href="{{ url_for('techniques', style=style|lower, cat='passing', subcat='knee-slice') }}">
-                                    <span class="menu-text ms-3">Knee Slice</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if subcat == 'torreando' %}active{% endif %}"
-                                   href="{{ url_for('techniques', style=style|lower, cat='passing', subcat='torreando') }}">
-                                    <span class="menu-text ms-3">Torreando</span>
-                                </a>
-                            </li>
-                            <!-- etc. -->
-                        {% elif cat == 'submissions' %}
-                            <li class="nav-item">
-                                <a class="nav-link {% if subcat == 'armbar' %}active{% endif %}"
-                                   href="{{ url_for('techniques', style=style|lower, cat='submissions', subcat='armbar') }}">
-                                    <span class="menu-text ms-3">Armbar</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if subcat == 'triangle' %}active{% endif %}"
-                                   href="{{ url_for('techniques', style=style|lower, cat='submissions', subcat='triangle') }}">
-                                    <span class="menu-text ms-3">Triangle Choke</span>
-                                </a>
-                            </li>
-                            <!-- etc. -->
-                        {% endif %}
-                    </ul>
+                    <div class="sidebar-content"></div>
+                        <h5 class="text-center"> {{ cat | title }}</h5>
+                        <ul class="nav flex-column">
+                            {% if cat == 'guard' %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if subcat == 'closed' %}active{% endif %}"
+                                    href="{{ url_for('techniques', style=style|lower, cat='guard', subcat='closed') }}">
+                                        <span class="menu-text ms-3">Closed Guard</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if subcat == 'dlr' %}active{% endif %}"
+                                    href="{{ url_for('techniques', style=style|lower, cat='guard', subcat='dlr') }}">
+                                        <span class="menu-text ms-3">De La Riva</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if subcat == 'butterfly' %}active{% endif %}"
+                                    href="{{ url_for('techniques', style=style|lower, cat='guard', subcat='butterfly') }}">
+                                        <span class="menu-text ms-3">Butterfly Guard</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if subcat == 'spider' %}active{% endif %}"
+                                    href="{{ url_for('techniques', style=style|lower, cat='guard', subcat='spider') }}">
+                                        <span class="menu-text ms-3">Spider Guard</span>
+                                    </a>
+                                </li>
+                                <!-- Voeg hier meer toe voor guard -->
+                            {% elif cat == 'passing' %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if subcat == 'knee-slice' %}active{% endif %}"
+                                    href="{{ url_for('techniques', style=style|lower, cat='passing', subcat='knee-slice') }}">
+                                        <span class="menu-text ms-3">Knee Slice</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if subcat == 'torreando' %}active{% endif %}"
+                                    href="{{ url_for('techniques', style=style|lower, cat='passing', subcat='torreando') }}">
+                                        <span class="menu-text ms-3">Torreando</span>
+                                    </a>
+                                </li>
+                                <!-- etc. -->
+                            {% elif cat == 'submissions' %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if subcat == 'armbar' %}active{% endif %}"
+                                    href="{{ url_for('techniques', style=style|lower, cat='submissions', subcat='armbar') }}">
+                                        <span class="menu-text ms-3">Armbar</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if subcat == 'triangle' %}active{% endif %}"
+                                    href="{{ url_for('techniques', style=style|lower, cat='submissions', subcat='triangle') }}">
+                                        <span class="menu-text ms-3">Triangle Choke</span>
+                                    </a>
+                                </li>
+                                <!-- etc. -->
+                            {% endif %}
+                        </ul>
+                    </div>
                 </div>
             </nav>
             {% endif %}
