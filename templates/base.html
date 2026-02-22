@@ -16,46 +16,111 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='technique.css') }}">
 
     <style>
-        /* Hoofd-sidebar (grote categorieën) */
+    /* Hoofd-sidebar (grote categorieën) */
+    #main-sidebar {
+        width: 80px !important;
+        transition: width 0.35s ease;
+        overflow: hidden;
+        white-space: nowrap;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0; /* altijd links op desktop */
+        z-index: 1000;
+        background-color: #f8f9fa;
+        border-right: 1px solid #dee2e6;
+        box-sizing: border-box;
+    }
+
+    #main-sidebar:hover {
+        width: 240px !important;
+    }
+
+    /* Hamburger-knop: alleen op mobiel */
+    .hamburger {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 1200;
+        background: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        width: 48px;
+        height: 48px;
+        font-size: 1.6rem;
+        cursor: pointer;
+        display: none; /* standaard verborgen op desktop */
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    /* Sidebar op mobiel: standaard ingeklapt buiten scherm */
+    @media (max-width: 767.98px) {
+        .hamburger {
+            display: flex;
+        }
+
         #main-sidebar {
+            width: 240px !important; /* volledig als open */
+            left: -240px; /* buiten scherm als ingeklapt */
+            transition: left 0.35s ease;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+        }
+
+        #main-sidebar.active {
+            left: 0 !important;
+        }
+
+        main {
+            margin-left: 0 !important;
+            transition: margin-left 0.35s ease;
+        }
+
+        #main-sidebar.active ~ main {
+            margin-left: 240px !important;
+        }
+
+        #sub-sidebar {
+            display: none; /* verberg sub-sidebar op mobiel */
+        }
+    }
+
+    /* Desktop: sidebar altijd zichtbaar, geen hamburger */
+    @media (min-width: 768px) {
+        #main-sidebar {
+            left: 0 !important;
             width: 80px !important;
-            transition: width 0.35s ease;
-            overflow: hidden;
-            white-space: nowrap;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            background-color: #f8f9fa;
-            border-right: 1px solid #dee2e6;
-            box-sizing: border-box;
         }
 
         #main-sidebar:hover {
             width: 240px !important;
         }
 
-        /* Sub-sidebar (subcategorieën – subtiel en smaller) */
-        #sub-sidebar {
-            width: 60px !important;
-            transition: width 0.35s ease;
-            overflow: hidden;
-            white-space: nowrap;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 80px;  /* Precies naast hoofd-sidebar */
-            z-index: 999;
-            background-color: #f1f3f5;  /* Lichter voor subtiele look */
-            border-right: 1px solid #dee2e6;
-            box-sizing: border-box;
-            opacity: 0.92;  /* Iets transparant voor subtiel effect */
+        main {
+            margin-left: 80px !important;
+            transition: margin-left 0.35s ease;
         }
 
-        #sub-sidebar:hover {
-            width: 200px !important;
+        #main-sidebar:hover ~ main {
+            margin-left: 240px !important;
         }
+
+        #sub-sidebar:hover ~ main {
+            margin-left: 280px !important;
+        }
+    }
+
+    /* Overige stijlen blijven hetzelfde */
+    .sidebar .menu-text {
+        opacity: 0;
+        transition: opacity 0.25s ease;
+    }
+
+    .sidebar:hover .menu-text {
+        opacity: 1;
+    }
 
         /* Gemeenschappelijke stijlen voor beide sidebars */
         .sidebar .menu-text {
@@ -156,15 +221,168 @@
                 margin-left: 0 !important;
             }
         }
+
+        .home-btn {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 1100;
+        width: 48px;
+        height: 48px;
+        background-color: transparent;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+        font-size: 1.6rem;
+        text-decoration: none;
+    }
+
+    .home-btn:hover {
+        transform: scale(1.15);
+        background-color: transparent;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .home-btn i {
+        margin: 0;
+    }
+
+    /* Hamburger-knop voor mobiel */
+    .hamburger {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 1200;
+        background: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        width: 48px;
+        height: 48px;
+        font-size: 1.6rem;
+        cursor: pointer;
+        display: none; /* verberg op desktop */
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    /* Sidebar op mobiel */
+    #main-sidebar {
+        left: -240px; /* buiten scherm */
+        transition: left 0.35s ease;
+    }
+
+    #main-sidebar.active {
+        left: 0;
+    }
+
+    /* Main content verschuift op mobiel als sidebar open is */
+    main {
+        transition: margin-left 0.35s ease, padding-left 0.35s ease;
+    }
+
+    #main-sidebar.active ~ main {
+        margin-left: 240px !important;
+    }
+
+    /* Media query voor mobiel (onder 768px) */
+    @media (max-width: 767.98px) {
+        .hamburger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #main-sidebar {
+            width: 240px !important;
+            left: -240px;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+        }
+
+        #main-sidebar.active {
+            left: 0;
+        }
+
+        main {
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        #sub-sidebar {
+            display: none; /* verberg sub-sidebar op mobiel */
+        }
+    }
+
+    /* Mobiel: grotere tekst, betere padding */
+    @media (max-width: 767.98px) {
+        h1, h2, h3 {
+            font-size: 1.6rem !important;
+        }
+
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        iframe {
+            height: 200px !important; /* kleiner iframe op mobiel */
+        }
+
+        .card {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+        }
+    }
+
+    /* Submit-video tekst volledig verbergen in ingeklapte sidebar */
+    #main-sidebar .submit-video {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.35s ease;
+        pointer-events: none; /* voorkomt dat je erop kunt klikken als hij half zichtbaar is */
+    }
+
+    /* Toon pas als sidebar volledig uitgeklapt is (hover op desktop) */
+    #main-sidebar:hover .submit-video {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Op mobiel: toon alleen als sidebar actief/open is */
+    @media (max-width: 767.98px) {
+        #main-sidebar .submit-video {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #main-sidebar.active .submit-video {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+    }
     </style>
 </head>
 <body>
+    <button class="hamburger" onclick="toggleSidebar()">
+        <i class="bi bi-list"></i>
+    </button>
+    <a href="{{ url_for('home') }}" class="home-btn" title="Home">
+        <i class="bi bi-house-door-fill"></i>
+    </a>
     <div class="container-fluid">
         <div class="row">
             <!-- Hoofd-sidebar (grote categorieën) -->
             <nav id="main-sidebar" class="sidebar">
-                <div class="position-sticky pt-5">
-                    <h4 class="text-center">Categorieën</h4>
+                <div class="position-sticky pt-3">
+                    <h4 class="text-center">Categories</h4>
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link {% if current_cat == 'standup' %}active{% endif %}"
@@ -230,13 +448,20 @@
                             </a>
                         </li>
                     </ul>
+                    <div class="mt-4 text-center px-2 submit-video">
+                        <small class="text-muted">
+                            Got a great technique video? <br>
+                            Send it to <a href="mailto:bjjconnect0@gmail.com" class="text-primary">bjjconnect0@gmail.com</a>
+                        </small>
+                    </div>
                 </div>
             </nav>
 
             <!-- Sub-sidebar (subcategorieën – alleen bij cat) -->
-            {% if cat %}
+             {% if cat %}
             <nav id="sub-sidebar" class="sidebar">
                 <div class="position-sticky pt-5">
+                    <span class="sub-sidebar-toggle" onclick="toggleSubSidebar()">›</span>
                     <h5 class="text-center"> {{ cat | title }}</h5>
                     <ul class="nav flex-column">
                         {% if cat == 'guard' %}
@@ -308,5 +533,18 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script>
+    function toggleSubSidebar() {
+        const sub = document.getElementById('sub-sidebar');
+        sub.classList.toggle('expanded');
+        // Optioneel: pijltje omdraaien
+        const toggle = sub.querySelector('.sub-sidebar-toggle');
+        toggle.textContent = sub.classList.contains('expanded') ? '‹' : '›';
+    }
+
+    function toggleSidebar() {
+        document.getElementById('main-sidebar').classList.toggle('active');
+    }
+    </script>
 </body>
 </html>
